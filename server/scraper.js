@@ -1,38 +1,38 @@
 var cheerio = require('cheerio');
 var request = require('request');
 
+
 var scrapeController = {
-  getData: function(req, res, next) {
-   res.send('Return JSON or HTML View');  
+    getData: function(req, res, next) { 
+
 
     // change URL to any site that you want
     request('http://giphy.com/', function(error, response, html) {
       var $ = cheerio.load(html);
         // add code here
+      var items = [];
 
-      $('.homepage-half').each(function(i, element){
+      $('.homepage-gif').each(function(i, element){
         // var giphy = $(this).find('img').attr('src');
         // Bundle into each object push to array
         // var tags = $('.tag').text().trim();
         var data = $(this);
-        var tagSearch = data.find();
-        var giphy = data.find('img').attr('src');
-        var tags = data.find('.tag').text().trim();
-        var arr = [];
-        
-        //arr.push(tags);      
-        
-          // console.log(giphy);
+        // var tagSearch = data.find();
+        // var giphy = "http://giphy.com" + data.find('a').attr('href');
+        // var giphy = data.find('img').attr('src');
+        // var tags = data.find('.gif').text();
+           // console.log(giphy);
           // console.log(giphy);
           // console.log(tags);
-
           var json = {
-            image: giphy,
-            hashtags: tags
+            url: "http://giphy.com" + data.find('a').attr('href'),
+            hashtags: data.find('a').text()
           };
-
-          console.log(json);
+         items.push(json);
       });
+        res.header("Access-Control-Allow-Origin", '*');
+        res.send(items);
+
    });
   }
 };
