@@ -7,26 +7,19 @@ var scrapeController = {
 
 
     // change URL to any site that you want
-    request('http://giphy.com/', function(error, response, html) {
+    request('https://www.quora.com/search?q=javascript', function(error, response, html) {
       var $ = cheerio.load(html);
         // add code here
       var items = [];
 
-      $('.homepage-gif').each(function(i, element){
-        // var giphy = $(this).find('img').attr('src');
-        // Bundle into each object push to array
-        // var tags = $('.tag').text().trim();
+      $('.pagedlist_item').each(function(i, element){
         var data = $(this);
-        // var tagSearch = data.find();
-        // var giphy = "http://giphy.com" + data.find('a').attr('href');
-        // var giphy = data.find('img').attr('src');
-        // var tags = data.find('.gif').text();
-           // console.log(giphy);
-          // console.log(giphy);
-          // console.log(tags);
           var json = {
-            url: "http://giphy.com" + data.find('a').attr('href'),
-            hashtags: data.find('a').text()
+            url: "http://www.quora.com/" + data.find('a').attr('href'),
+            title: data.find('.title').text(),
+            infomation: data.find('.search_result_snippet').text(),
+            more: data.find('.more_link').attr('_blank')
+
           };
          items.push(json);
       });
