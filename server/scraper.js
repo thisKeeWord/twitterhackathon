@@ -7,18 +7,18 @@ var scrapeController = {
 
 
     // change URL to any site that you want
-    request('https://www.quora.com/search?q=javascript', function(error, response, html) {
+    request('https://twitter.com/search?q=javascript%20%22javascript%22%20lang%3Aen&src=typd', function(error, response, html) {
       var $ = cheerio.load(html);
         // add code here
       var items = [];
 
-      $('.pagedlist_item').each(function(i, element){
+      $('.content').each(function(i, element){
         var data = $(this);
           var json = {
-            url: "http://www.quora.com/" + data.find('a').attr('href'),
-            title: data.find('.title').text(),
-            infomation: data.find('.search_result_snippet').text(),
-            more: data.find('.more_link').attr('_blank')
+            url: "http://www.twitter.com/" + data.find('a').attr('href'),
+            title: data.find('.stream-item-header').text(),
+            infomation: data.find('.TweetTextSize').text(),
+            more: data.find('.TweetTextSize').find('a').attr('href')
 
           };
          items.push(json);
@@ -32,7 +32,4 @@ var scrapeController = {
 
 module.exports = scrapeController;
 
-// ONLY WORK ON THIS FILE
-// FILTER DOWN THE CLASSES USING "CLASS.CLASS.HREF.ETC" TO GET THE IMAGES
-// STORE THOSE IN VARIABLES
-// DISPLAY TO USER
+// quora does not have an api so we 

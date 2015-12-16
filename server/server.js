@@ -5,7 +5,7 @@ var scraperController = require('./scraper');
 // first sample route
 app.get('/', scraperController.getData )
 app.get('/stream', scraperController.getData )
-app.listen(3000);
+app.listen(3500);
 
 //console.log('Magic happens on port 3000');
 
